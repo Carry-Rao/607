@@ -1,0 +1,74 @@
+/* 导航栏样式 */
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    /* 水平间距均匀分布 */
+    align-items: center;
+    /* 垂直居中对齐 */
+    background-color: #333;
+    color: #fff;
+    padding: 0 20px;
+    /* 上下左右内边距 */
+    height: 50px;
+}
+
+/* 导航栏按钮样式 */
+.nbb {
+    background-color: #666666;
+    height: 100vh;
+    /* 假设您希望它覆盖整个视口的高度 */
+    display: flex;
+    /* 使用 Flexbox 实现内容居中对齐 */
+    justify-content: center;
+    width: 7%;
+    height: 90%;
+    font-size: 30px;
+    font-weight: bold;
+    /* margin-top :100px ;*/
+    text-align: center;
+    font-family: "仿宋";
+}
+
+.nbb:hover {
+    background-color: #7e7e7e;
+    cursor: pointer;
+}
+
+/* 调整后的导航栏样式，包含注释以便理解清晰 */
+#navbar {
+    display: flex;
+    justify-content: flex-start;
+    /* 内容左对齐 */
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 0 20px;
+    height: 50px;
+    gap: 10px;
+    /* 在元素之间添加间距 */
+}
+
+/* 用户图标样式 */
+#user {
+    background: url("img/user.png") center/cover no-repeat;
+    align-self: center;
+    margin-right: 10 px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+#user {
+    margin-left: auto; /* 这会使图片靠右 */
+}
+
+#user:hover {
+    cursor: pointer;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: /*渐变色*/ linear-gradient(to right, #1d1c1c, #585756);
+}

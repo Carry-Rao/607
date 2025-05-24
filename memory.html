@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>关于607班网页</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
+    <style>
+        @font-face {
+            font-family: '毛笔字';
+            src: url('毛笔字.ttf') format('truetype');
+        }
+        .about {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 20px;
+            margin-top: 50px;
+            width: 500px;
+            height: 400px;
+            background: /*渐变色*/ linear-gradient(to right, #4CA1AF, #C4E0E5);
+            margin: 0 auto;
+            font-family: "毛笔字";
+            font-size: 150px;
+            color: rgb(241, 145, 0);
+            /*字居中*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #about p{
+            font-size: 50px;
+        }
+        h1 {
+            color: white;
+            font-family: "仿宋";
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <div class="nbb" onclick="window.location.href='/index.html'">首页</div>
+        <div class="nbb" onclick="window.location.href='/news.html'">资源</div>
+        <div class="nbb" onclick="window.location.href='/cm.html'">同学</div>
+        <div class="nbb" onclick="window.location.href='/about.html'">回忆</div>
+        <img src="img/user.png" alt="logo" class="logo" id="user"onclick="window.location.href='/aboutme.html'">
+    </div>
+    <div id="notthetime">
+        <div class="about" style="color: white; width: 100%; height: 100%; background: none;">时辰未到！</div>
+    </div>
+    <div id="memory" style="display: none;">
+        <h1>关于607班</h1>
+        <div class="about" id="about"><p>相识</p>??<p>天</p></div>
+    </div>
+</body>
+<script>
+    function getCookie(name) {
+        let cookieArr = document.cookie.split(";");
+        for(let i = 0; i < cookieArr.length; i++) {
+            let cookiePair = cookieArr[i].split("=");
+            if(name === cookiePair[0].trim()) {
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        return null; // 如果未找到，则返回null
+    }
+
+    var username = getCookie("username");
+    if (username == null || username == "") {
+        // 跳转到登录页面
+        // window.location.href = "/login.html";
+    }
+    var xhr = new XMLHttpRequest ();
+    xhr.open ("POST", "https://607b.crzy.us.kg/memory");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var result = JSON.parse(xhr.responseText);
+                    if (result.status == "success") {
+                        document.getElementById("notthetime").style.display = "none";
+                        document.getElementById("memory").style.display = "block";       
+                    }
+                    else {
+                        //结束所有js
+                    }
+                }
+                else {
+                    //结束所有js
+                }
+            }
+            else {
+                //结束所有js
+            }
+        };
+        xhr.send("username=" + encodeURIComponent(username));
+
+    function gt () {
+    //计算2022.9.1到现在的时间差
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var day = now.getDate();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        var time = year + "." + month + "." + day + " " + hour + ":" + minute + ":" + second;
+        var start = new Date("2022-09-01 00:00:00");
+        var end = new Date(time);
+        var diff = end.getTime() - start.getTime();
+        var days = Math.floor(diff / (24 * 3600 * 1000));
+        var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
+        var minutes = Math.floor((diff % (3600 * 1000)) / (60 * 1000));
+        var seconds = Math.floor((diff % (60 * 1000)) / 1000);
+        var str = "<p>相识</p>" + days + "<p>天</p>";
+        document.getElementById("about").innerHTML = str;
+    }
+    gt ();
+</script>
+</html>

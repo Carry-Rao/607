@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>欢迎来到607班网页！</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
+    <style>
+        h1 , h2 , p {
+            font-family: "微软雅黑";
+            color: white;  
+        }
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <div class="nbb" onclick="window.location.href='/index.html'">首页</div>
+        <div class="nbb" onclick="window.location.href='/news.html'">资源</div>
+        <div class="nbb" onclick="window.location.href='/cm.html'">同学</div>
+        <div class="nbb" onclick="window.location.href='/memory.html'">回忆</div>
+        <img src="img/user.png" alt="logo" class="logo" id="user"onclick="window.location.href='/aboutme.html'">
+    </div>
+    <h1>这还只是一个残次品网站！！！！！！！！！！！！！！！！！！！！</h1>
+    <button onclick="changemb()">修改我的目标</button>
+    <input type="text" id="nameInput" placeholder="姓名">
+    <input type="text" id="czInput" placeholder="参数1">
+    <input type="text" id="gzInput" placeholder="参数2">
+    <input type="text" id="dxInput" placeholder="参数3">
+
+    <table border="1">
+        <thead>
+            <th>
+                <tr>姓名</tr>
+                <td>目标初中</td>
+                <td>目标高中</td>
+                <td>目标大学</td>
+            </th>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+    <h1>欢迎来到607班网页！</h1>
+    <p style="display: none;" id="carrie">印象中，你有那《红楼梦》中林黛玉一般讨人喜欢。你时而惊呼，有时而发笑。你每天穿着雪白的校服，就想天鹅的羽毛那样纯净、洁白。你的笑声往往令人痴迷……</p>
+    <h2>这是什么网站？</h2>
+    <p>这是一个关于607班的网站，主要用来分享资源、同学、以及小学3年回忆。</p>
+    <h2>我的信息安全吗？</h2>
+    <p>安全。所有信息都经过加密传输，并且所有人必须验证。不是我们班的人看不到。</p>
+    <h2>有人管吗？</h2>
+    <p>所有老师都在里面哦。不建议八卦。</p>
+    <h2>我要反馈问题</h2>
+    <p>你可以在<a href="https://github.com/carry-rao/607issue/issues">issue界面</a>问题。</p>
+</body>
+<script>
+    function getCookie(name) {
+        let cookieArr = document.cookie.split(";");
+        for(let i = 0; i < cookieArr.length; i++) {
+            let cookiePair = cookieArr[i].split("=");
+            if(name === cookiePair[0].trim()) {
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        return null; // 如果未找到，则返回null
+    }
+
+    var username = getCookie("username");
+    if (username == null || username == "") {
+        // 跳转到登录页面
+        window.location.href = "/login.html";
+    } else if (username == "Carrie") {
+        document.getElementById ("carrie").style.display = "block";
+    }
+    //从后端获取所有人的目标并显示在页面上
+    $.getJSON("http://localhost:3000/allmb", function(data) {
+    if (data.status !== "success") {
+        console.log("获取留言失败");
+        return;
+    }
+    var tbody = document.getElementById("tbody");
+    for (var i = 0; i < data.mb.length; i++) {
+        var tr = document.createElement("tr");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var td4 = document.createElement("td");
+        td1.innerHTML = data.mb[i].name;
+        td2.innerHTML = data.mb[i].cz;
+        td3.innerHTML = data.mb[i].gz;
+        td4.innerHTML = data.mb[i].dx;
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tbody.appendChild(tr);
+    }
+}).fail(function() {
+    console.log("请求失败");
+});
+
+    
+    function changemb() {
+    // 获取输入字段的值
+    var name = document.getElementById('nameInput').value;
+    var cz = document.getElementById('czInput').value;
+    var gz = document.getElementById('gzInput').value;
+    var dx = document.getElementById('dxInput').value;
+
+    // 检查输入是否为空
+    if (name === "" || cz === "" || gz === "" || dx === "") {
+        alert("所有字段都是必填的");
+        return;
+    }
+
+    // 发送 POST 请求到后端
+    $.post("http://localhost:3000/mb", { name: name, cz: cz, gz: gz, dx: dx }, function(data) {
+        if (data.status === "success") {
+            alert("留言成功");
+            // 可以在这里重新加载留言列表，或者将新留言添加到页面上
+        } else {
+            alert("留言失败");
+        }
+    }).fail(function() {
+        console.log("请求失败");
+        alert("请求失败，请重试");
+    });
+}
+
+</script>
+</html>
