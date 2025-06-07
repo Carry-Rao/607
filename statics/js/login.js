@@ -3,7 +3,7 @@ import setToken from "./safe/token.js";
 
 console.log ("login.js")
 
-function login() {
+export function login() {
     document.getElementById("error").innerHTML = "";
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
