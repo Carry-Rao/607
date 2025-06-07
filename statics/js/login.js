@@ -1,7 +1,7 @@
-import sha256_digest from "./safe/tools.js";
-import setToken from "./safe/token.js";
+import { sha256_digest } from "./safe/tools.js";
+import { setToken } from "./safe/token.js";
 
-console.log ("login.js")
+console.log("login.js");
 
 export function login() {
     document.getElementById("error").innerHTML = "";
@@ -18,12 +18,16 @@ export function login() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
                 if (xhr.status == 200) {
-                    var result = JSON.parse(xhr.responseText);
-                    if (result.status == "success") {
-                        setToken(result.token);
-                        window.location.href = "/index.html";
-                    } else {
-                        document.getElementById("error").innerHTML = result.err;
+                    try {
+                        var result = JSON.parse(xhr.responseText);
+                        if (result.status == "success") {
+                            setToken(result.token);
+                            window.location.href = "/index.html";
+                        } else {
+                            document.getElementById("error").innerHTML = result.err;
+                        }
+                    } catch (e) {
+                        document.getElementById("error").innerHTML = "无法解析服务器响应！";
                     }
                 } else if (xhr.status == 401) {
                     document.getElementById("error").innerHTML = "用户名或密码错误！";
@@ -32,11 +36,13 @@ export function login() {
                 } else if (xhr.status == 530) {
                     document.getElementById("error").innerHTML = "服务器错误！";
                 } else {
-                    var response = JSON.parse(xhr.responseText);
-                    document.getElementById("error").innerHTML = response.err;
+                    document.getElementById("error").innerHTML = "发生未知错误！";
                 }
             }
         };
-        xhr.send("username=" + username + "&password=" + sha256);
+        xhr.send("username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(sha256));
+    }).catch(function(error) {
+        document.getElementById("error").innerHTML = "发生错误！";
+        console.error("Error during SHA-256 digest:", error);
     });
 }
