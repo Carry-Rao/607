@@ -41,6 +41,7 @@ function register() {
                     } else if (xhr.status === 530) {
                         document.getElementById("error").innerHTML = "服务器错误";
                     } else {
+                        var response = JSON.parse(xhr.responseText);
                         document.getElementById("error").innerHTML = response.message;
                     } 
                 }

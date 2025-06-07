@@ -23,6 +23,7 @@
        </div>
        <label for="email" id="emaill">验证码</label>
        <input type="text" id="email" name="email" style="float: left;" class="ei" onclick="email">
+       <input type="button" value="获取验证码" onclick="email()">
        <label for="password">新密码</label>
        <input type="password" id="password" name="password">
        <label for="confirm">确认密码</label>
@@ -32,122 +33,6 @@
    </form>
 </body>
 <script>
-    document.getElementById("email").onclick = email;
-    function sha256_digest(message) {
-        // 使用Web Crypto API生成SHA-256哈希
-        return crypto.subtle.digest('SHA-256', new TextEncoder().encode(message))
-            .then(function(hash) {
-                return hex(hash);
-            });
-    }
-
-    function hex(buffer) {
-        var hexCodes = [];
-        var view = new DataView(buffer);
-        for (var i = 0; i < view.byteLength; i++) {
-            var value = view.getUint8(i).toString(16);
-            if (value.length === 1) {
-                hexCodes.push('0');
-            }
-            hexCodes.push(value);
-        }
-        return hexCodes.join('');
-    }
-    var rv = "";
-    function email() {
-        document.getElementById("error").innerHTML = "";
-        var name = document.getElementById("name").value;
-        var yz = document.getElementsByName("yz");
-        var yzValue = "";
-        for (var i = 0; i < yz.length; i++) {
-            if (yz[i].checked) {
-                yzValue = yz[i].value;
-                break;
-            }
-        }
-        if (yzValue == "") {
-            document.getElementById("error").innerHTML = "请选择验证方式！";
-            return;
-        } 
-        if (name == "") {
-            document.getElementById("error").innerHTML = "姓名不能为空！";
-            return;
-        }
-        for (var i = 0; i < 16; i++) {
-            //字符串
-            var char = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345666789()+-*/%$#@!?";
-            //随机索引
-            var index = Math.floor(Math.random() * char.length);
-            //随机字符
-            rv += char.charAt(index);   
-        }
-        
-        var xhr = new XMLHttpRequest();
-        if (yzValue == "email") {
-            xhr.open("POST", "https://607bg.carryrao.top/fpe", true);
-        } else if (yzValue == "qq") {
-            xhr.open("POST", "https://607bg.carryrao.top/fpq", true);
-        }
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4) {
-                if (xhr.status == 200) {
-                    var result = JSON.parse(xhr.responseText);
-                    if (result.status == "success") {
-                        return;
-                    } else {
-                        document.getElementById("error").innerHTML = result.message;
-                    }
-                } else if (xhr.status == 530) {
-                    document.getElementById("error").innerHTML = "服务器错误！";
-                }
-            }
-        };
-        xhr.send("name=" + name + "&send=" + rv);
-    }
-    function fp() {
-        document.getElementById("error").innerHTML = "";
-        var name = document.getElementById("name").value;
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
-        var yz = document.getElementsByName("yz");
-        var yzValue = "";
-        for (var i = 0; i < yz.length; i++) {
-            if (yz[i].checked) {
-                yzValue = yz[i].value;
-                break;
-            }
-        }
-        if (yzValue == "") {
-            document.getElementById("error").innerHTML = "请选择验证方式！";
-            return;
-        }
-        if (name == "" || username == "" || password == "") {
-            document.getElementById("error").innerHTML = "姓名、用户名或密码不能为空！";
-            return;
-        }
-        sha256_digest(password).then(function(sha256) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://607bg.carryrao.top/fp", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4) {
-                    if (xhr.status == 200) {
-                        var result = JSON.parse(xhr.responseText);
-                        if (result.status == "success") {
-                            window.location.href = "/login.html";
-                        } else {
-                            document.getElementById("error").innerHTML = result.message;
-                        }
-                    } else if (xhr.status == 401) {
-                        document.getElementById("error").innerHTML = "用户名或密码错误！";
-                    } else if (xhr.status == 530) {
-                        document.getElementById("error").innerHTML = "服务器错误，请稍后再试！";
-                    }
-                }
-            };
-            xhr.send("name=" + name + "&username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(sha256) + "&type=" + yzValue);
-        });
-    }
+    
 </script>
 </html>

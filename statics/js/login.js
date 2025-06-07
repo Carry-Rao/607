@@ -21,7 +21,7 @@ function login() {
                         setToken(result.token);
                         window.location.href = "/index.html";
                     } else {
-                        document.getElementById("error").innerHTML = xhr.err;
+                        document.getElementById("error").innerHTML = result.err;
                     }
                 } else if (xhr.status == 401) {
                     document.getElementById("error").innerHTML = "用户名或密码错误！";
@@ -30,7 +30,8 @@ function login() {
                 } else if (xhr.status == 530) {
                     document.getElementById("error").innerHTML = "服务器错误！";
                 } else {
-                    document.getElementById("error").innerHTML = xhr.err;
+                    var response = JSON.parse(xhr.responseText);
+                    document.getElementById("error").innerHTML = response.err;
                 }
             }
         };
