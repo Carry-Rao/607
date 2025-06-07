@@ -1,6 +1,8 @@
 import sha256_digest from "./safe/tools.js";
 import setToken from "./safe/token.js";
 
+console.log ("login.js")
+
 function login() {
     document.getElementById("error").innerHTML = "";
     var username = document.getElementById("username").value;
