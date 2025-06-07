@@ -1,9 +1,8 @@
-// Cookie functions
-function setCookie(name, value, days) {
+export function setCookie(name, value, days) {
     document.cookie = name + "=" + value + "; path=/; max-age=" + (days * 24 * 60 * 60);
 }
 
-function getCookie(name) {
+export function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
@@ -14,6 +13,6 @@ function getCookie(name) {
     return null;
 }
 
-function deleteCookie(name) {
+export function deleteCookie(name) {
     document.cookie = name + "=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT";
 }

@@ -1,4 +1,4 @@
-function sha256_digest(message) {
+export function sha256_digest(message) {
     // 使用Web Crypto API生成SHA-256哈希
     return crypto.subtle.digest('SHA-256', new TextEncoder().encode(message))
         .then(function (hash) {
@@ -6,7 +6,7 @@ function sha256_digest(message) {
         });
 }
 
-function hex(buffer) {
+export function hex(buffer) {
     var hexCodes = [];
     var view = new DataView(buffer);
     for (var i = 0; i < view.byteLength; i++) {

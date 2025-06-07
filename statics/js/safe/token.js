@@ -1,10 +1,10 @@
-import { getCookie } from "./cookie.js";
+import { getCookie, setCookie } from "./cookie.js";
 
 function getToken() {
     return getCookie("token");
 }
 
-function checkToken() {
+export function checkToken() {
     if (!getToken()) {
         return false;
     }
@@ -29,7 +29,7 @@ function checkToken() {
     };
 }
 
-function setToken(token) {
+export function setToken(token) {
     setCookie("token", token, 30);
 }
 
