@@ -1,0 +1,56 @@
+h1, h2, p {
+    font-family: "微软雅黑";
+    color: white;
+}
+a {
+    color: white;
+    text-decoration: none;
+}
+input[type="text"] { /* 修正选择器 */
+    width: 200px;
+    height: 30px;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: "微软雅黑"; /* 修正字体名称 */
+}
+
+/* 美化按钮和输入字段 */
+#submitButton {
+    background-color: #4CAF50; /* 绿色背景 */
+    color: white; /* 白色文字 */
+    padding: 5px 10px; /* 减小内边距 */
+    margin-top: 5px; /* 减小上外边距 */
+    border: none; /* 无边框 */
+    border-radius: 4px; /* 圆角 */
+    cursor: pointer; /* 鼠标悬停时显示为手形 */
+    font-size: 14px; /* 减小字体大小 */
+    font-family: "微软雅黑"; /* 字体 */
+}
+
+#submitButton:hover {
+    background-color: #45a049; /* 鼠标悬停时的背景色 */
+}
+
+#inputContainer {
+    margin-top: 5px; /* 减小上外边距 */
+}
+
+.textInput {
+    width: 180px; /* 减小宽度 */
+    height: 25px; /* 减小高度 */
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px; /* 减小字体大小 */
+    font-family: "微软雅黑";
+    background-color: #f9f9f9; /* 浅灰色背景 */
+}
+
+.textInput:focus {
+    border-color: #4CAF50; /* 聚焦时的边框颜色 */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* 聚焦时的阴影 */
+}

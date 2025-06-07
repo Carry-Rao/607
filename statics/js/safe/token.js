@@ -1,0 +1,30 @@
+import { getCookie } from "./cookie.js";
+
+function getToken() {
+    return getCookie("token");
+}
+
+function checkToken() {
+    if (!getToken()) {
+        return false;
+    }
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://607backend.carryrao.top", true);
+    xhr.setRequestHeader("Authorization", "Bearer " + getToken());
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    };
+}
+
+function setToken(token) {
+    setCookie("token", token, 30);
+}
+

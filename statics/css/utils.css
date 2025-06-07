@@ -1,3 +1,10 @@
+h1 {
+    color: white;
+    text-align: center;
+}
+body {
+    background: /*渐变色*/ linear-gradient(to right, #1d1c1c, #585756);
+}
 /* 导航栏样式 */
 #navbar {
     display: flex;
