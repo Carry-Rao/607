@@ -9,12 +9,17 @@ function checkToken() {
         return false;
     }
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://607backend.carryrao.top", true);
+    xhr.open("POST", "https://607backend.carryrao.top/token", true);
     xhr.setRequestHeader("Authorization", "Bearer " + getToken());
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                return true;
+                var response = JSON.parse(xhr.responseText);
+                if (response.success == "true") {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }

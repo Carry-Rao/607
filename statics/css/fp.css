@@ -1,5 +1,5 @@
 input[type="submit"] {
-    background-color: #f04944;
+    background-color: rgb(233, 219, 29);
     color: white;
     padding: 10px;
     border: none;
@@ -7,7 +7,7 @@ input[type="submit"] {
     cursor: pointer;
 }
 button {
-    background-color: #f04944;
+    background-color: #4CAF50;
     color: white;
     padding: 10px;
     border: none;
@@ -15,6 +15,14 @@ button {
     cursor: pointer;
     margin-top: 10px;
 }
+#error {
+    color: red;
+    margin-top: 10px;
+}
+.ei {
+    display: inline-block;
+}
+
 form {
-    height: 500px;
+    height: 530px;
 }
