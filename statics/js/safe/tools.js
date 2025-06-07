@@ -18,5 +18,3 @@ export function hex(buffer) {
     }
     return hexCodes.join('');
 }
-
-export { sha256_digest, hex };
